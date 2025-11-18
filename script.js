@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Agrega el "escuchador" de eventos al sobre
-    envelope.addEventListener('dblclick', openLetter);
+    envelope.addEventListener('click', openLetter);
 
     // --- Animación de corazones y flores ---
 
