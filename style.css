@@ -1,0 +1,153 @@
+/* Configuración básica */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Georgia', serif;
+    overflow: hidden; /* Evita barras de scroll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 1. El cielo que cambia */
+.sky-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    /* Animación del cielo: 60s para un ciclo completo */
+    animation: changeSky 60s infinite linear;
+}
+
+/* Animación del cielo (Amanecer -> Día -> Atardecer -> Noche) */
+@keyframes changeSky {
+    0%   { background: linear-gradient(to bottom, #f3a0a0, #f7d8a1); } /* Amanecer */
+    25%  { background: linear-gradient(to bottom, #87CEEB, #f0f8ff); } /* Día */
+    50%  { background: linear-gradient(to bottom, #ff7e5f, #feb47b); } /* Atardecer */
+    75%  { background: linear-gradient(to bottom, #2c3e50, #4c669f); } /* Noche */
+    100% { background: linear-gradient(to bottom, #f3a0a0, #f7d8a1); } /* Vuelta al amanecer */
+}
+
+/* 2. Las nubes */
+.cloud {
+    position: absolute;
+    background: #ffffffb0; /* Blancas con transparencia */
+    border-radius: 50%;
+    width: 100px;
+    height: 40px;
+    opacity: 0.8;
+    /* Animación para mover las nubes */
+    animation: moveCloud 25s linear infinite;
+}
+/* Diferentes tamaños y posiciones para las nubes */
+.cloud:nth-child(1) {
+    width: 120px;
+    height: 50px;
+    top: 10%;
+    animation-duration: 20s;
+}
+.cloud:nth-child(2) {
+    width: 80px;
+    height: 30px;
+    top: 25%;
+    animation-duration: 30s;
+    animation-delay: -5s; /* Empieza en otro punto */
+}
+.cloud:nth-child(3) {
+    width: 150px;
+    height: 60px;
+    top: 15%;
+    animation-duration: 22s;
+    animation-delay: -10s;
+}
+
+@keyframes moveCloud {
+    0%   { transform: translateX(-200px); }
+    100% { transform: translateX(100vw); }
+}
+
+/* 3. El sobre inicial */
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: #f7cac9; /* Color rosa pastel */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.envelope:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+.message-prompt {
+    text-align: center;
+    color: #5d4037;
+    padding-top: 60px;
+    font-size: 1.1em;
+}
+.message-prompt p:last-child {
+    font-size: 0.9em;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* 4. La carta que se revela */
+.letter {
+    display: none; /* Oculta por defecto */
+    width: 80%;
+    max-width: 600px;
+    padding: 30px;
+    background: #fff8f0; /* Color crema */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: left;
+    color: #444;
+    line-height: 1.8;
+    font-size: 1.1em;
+    animation: fadeIn 1s ease-out; /* Animación de aparición */
+}
+.letter h2 {
+    color: #d9534f;
+    border-bottom: 2px solid #f0e0e0;
+    padding-bottom: 10px;
+}
+.letter .signature {
+    text-align: right;
+    font-style: italic;
+    color: #d9534f;
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+/* 5. Animaciones de corazones y flores */
+.falling-items {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Detrás del sobre/carta */
+}
+.item {
+    position: absolute;
+    top: -20px; /* Empieza fuera de la pantalla */
+    font-size: 1.5rem;
+    animation: fall 10s linear infinite;
+}
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+}
+
+/* 6. Clases de utilidad de JS */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+.hidden {
+    display: none;
+}
